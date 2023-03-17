@@ -2,11 +2,10 @@
 #include <iostream>
 #include <vector>
 
-using namespace std::complex_literals;
 using namespace std;
 
-constexpr complex<double> pi() {
-    return std::atan(1) * 4;
+const complex<double> pi() {
+    return atan(1) * 4;
 }
 
 class Matrix {
@@ -14,10 +13,12 @@ class Matrix {
         int n;
         vector<vector<double>> *data_ptr;
         vector<vector<double>> &data;
+        
     public:
         Matrix() : data_ptr(new vector<vector<double>>()), data(*data_ptr) {
             this->data.resize(10, vector<double>(10, 0));
         }
+
         ~Matrix() {
             delete data_ptr;
         }
@@ -29,9 +30,11 @@ class Matrix {
                 for (int j = 0; j < this->n; j++)
                     cin >> this->data[i][j];
         }
+
         int size() {
             return this->n;
         }
+
         complex<double> dftElement(int k, int l) {
             complex<double> element = 0;
             for (int m = 0; m < this->n; m++) {
@@ -45,8 +48,6 @@ class Matrix {
         }
 };
 
-
-
 int main(void) {
     Matrix *source = new Matrix();
     source->readMatrix();
@@ -55,9 +56,9 @@ int main(void) {
     for (int i = 0; i < source->size(); i++) {
         for (int j = 0; j < source->size(); j++) {
             complex<double> el = source->dftElement(i, j);
-            sum                += el;
+            sum += el;
         }
     }
-    cout << sum / (double) source->size();
+    cout << sum / (double) source->size() << endl;
     return 0;
 }
